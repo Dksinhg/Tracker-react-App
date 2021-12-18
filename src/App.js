@@ -1,25 +1,61 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import ExpenseItem from "./Components/Expenses/ExpenseItem"
+import ExpenseDate from "./Components/Expenses/ExpenseDate";
+import Expenses from "./Components/Expenses/Expenses";
+// import Newexpense from "./Components/Newexpense/Newexpense"
+import Card from './Components/UI/Card'
 
-function App() {
+
+
+let DUMMY_EXPENSE = [
+  {
+    id: 'e1',
+    title: 'School fee',
+    amount: 250,
+    date: new Date
+  },
+
+  {
+    id: 'e2',
+    title: 'Books fee',
+    amount: 500,
+    date: new Date
+  },
+
+  {
+    id: 'e3',
+    title: 'House rent',
+    amount: 200,
+    date: new Date
+  },
+
+  {
+    id: 'e4',
+    title: 'Food',
+    amount: 520,
+    date: new Date
+  }
+]
+
+
+const App = () => {
+
+  const [expense, setexpense] = useState(DUMMY_EXPENSE);
+
+  const saveExpenseDataHandle = (enteredExpenseData) => {
+    const updatedExpense = [enteredExpenseData, ...expense]
+    setexpense(updatedExpense)
+
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
 
+    <div>
+      <Card onSaveExpenseData={saveExpenseDataHandle} />
+      {/* <Newexpense /> */}
+      <Expenses item={expense} />
+
+    </div>
+  )
+}
 export default App;
